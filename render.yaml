@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: tadu-crawler-wordpress
+    env: node
+    rootDirectory: BackEnd-Crawl-Wordpress
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 18.19.0
+      - key: PLAYWRIGHT_BROWSERS_PATH
+        value: "0"
+      - key: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD
+        value: "false"
+

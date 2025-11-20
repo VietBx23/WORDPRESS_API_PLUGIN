@@ -1,0 +1,28 @@
+{
+  "name": "tadu-crawler",
+  "version": "1.0.0",
+  "description": "A web crawler for writerworking.net",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "postinstall": "npx playwright install --with-deps chromium"
+  },
+  "keywords": [
+    "crawl",
+    "express",
+    "playwright"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cheerio": "^1.0.0-rc.12",
+    "express": "^4.19.2",
+    "p-limit": "^5.0.0",
+    "playwright": "^1.45.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
