@@ -1,21 +1,23 @@
-FROM mcr.microsoft.com/playwright:focal AS base
+FROM mcr.microsoft.com/playwright:v1.45.1-focal
 
 WORKDIR /app
 
-# Install only production deps to keep image slim
 COPY package*.json ./
-RUN npm install --production
 
-# Copy source
+# Install production dependencies
+RUN npm ci --only=production
+
 COPY . .
 
-# Ensure Playwright browsers (Chromium) are installed inside the image.
-# This runs at build-time so runtime containers already have the binary.
-RUN npx playwright install --with-deps chromium
+# Playwright browsers are already in the base image, but we might need to ensure they are linked correctly if we were not using the official image.
+# Since we ARE using the official image matching the version, we strictly don't need 'npx playwright install' again 
+# UNLESS the base image version doesn't match exactly what's in package.json.
+# To be safe and ensure compatibility, we can leave it or rely on the base image. 
+# The base image v1.45.1-focal contains the browsers for playwright v1.45.1.
 
-ENV PORT=3000 \
-    NODE_ENV=production
+ENV PORT=3000
+ENV NODE_ENV=production
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
